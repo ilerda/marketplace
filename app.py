@@ -30,19 +30,32 @@ class Product(db.Model):
 # Read All
 @app.route('/v1/products', methods=['GET'])
 def index():
-    return
+
+    products = Product.query.order_by(Product.name).all()
+    return jsonify([item.serialize() for item in products])
 
 # Create
 @app.route('/v1/product/<int:new_id>', methods=['POST'])
 def create(new_id):
-    return
+
+    new_name = request.json['name']
+    new_price = request.json['price']
+    product = Product(id=new_id, name=new_name, price=new_price)
+
+    db.session.add(product)
+
+    try:
+        db.session.commit()
+        return 'Added product successfully'
+    except:
+        return 'There was some issue adding this product', 422
 
 # Read One
 @app.route('/v1/product/<int:id>', methods=['GET'])
 def retrieve(id):
 
     product = Product.query.get_or_404(id)
-    return jsonify(product)
+    return jsonify(product.serialize())
 
 # Update
 @app.route('/v1/product/<int:id>', methods=['PUT'])
