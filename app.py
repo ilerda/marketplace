@@ -32,7 +32,9 @@ def create(new_id):
 # Read One
 @app.route('/v1/product/<int:id>', methods=['GET'])
 def retrieve(id):
-    return
+
+    product = Product.query.get_or_404(id)
+    return jsonify(product)
 
 # Update
 @app.route('/v1/product/<int:id>', methods=['PUT'])
