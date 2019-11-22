@@ -45,3 +45,7 @@ def update(id):
 @app.route('/v1/product/<int:id>', methods=['DELETE'])
 def delete(id):
     return
+
+if __name__ == "__main__":
+
+    app.run(debug=True)
