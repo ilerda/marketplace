@@ -15,3 +15,31 @@ class Product(db.Model):
 
     def __repr__(self):
         return '<Product %r>' % self.name
+
+
+# CRUD methods implemented
+
+# Read All
+@app.route('/', methods=['GET'])
+def index():
+    return
+
+# Create
+@app.route('/<int:new_id>', methods=['POST'])
+def create(new_id):
+    return
+
+# Read One
+@app.route('/<int:id>', methods=['GET'])
+def retrieve(id):
+    return
+
+# Update
+@app.route('/<int:id>', methods=['PUT'])
+def update(id):
+    return
+
+# Delete
+@app.route('/<int:id>', methods=['DELETE'])
+def delete(id):
+    return
