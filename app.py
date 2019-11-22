@@ -16,6 +16,14 @@ class Product(db.Model):
     def __repr__(self):
         return '<Product %r>' % self.name
 
+    def serialize(self):
+       """Return product data in easily serializable format"""
+       return {
+           'id' : self.id,
+           'name': self.name,
+           'price': self.price
+       }
+
 
 # CRUD methods implemented
 
