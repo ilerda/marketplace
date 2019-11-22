@@ -60,12 +60,33 @@ def retrieve(id):
 # Update
 @app.route('/v1/product/<int:id>', methods=['PUT'])
 def update(id):
-    return
+    product = Product.query.get_or_404(id)
+
+    if 'name' in request.json:
+        product.name = request.json['name']
+    elif 'price' in request.json:
+        product.price = request.json['price']
+    else:
+        return 'There is something wrong in the request body', 422
+
+    try:
+        db.session.commit()
+        return 'Updated product successfully'
+    except:
+        return 'There was some issue updating this product', 422
 
 # Delete
 @app.route('/v1/product/<int:id>', methods=['DELETE'])
 def delete(id):
-    return
+    product_to_delete = Product.query.get_or_404(id)
+
+    try:
+        db.session.delete(product_to_delete)
+        db.session.commit()
+        return 'Deleted product successfully'
+    except:
+        return 'There was some problem deleting this product', 422
+
 
 if __name__ == "__main__":
 
